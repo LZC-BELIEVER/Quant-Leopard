@@ -22,16 +22,17 @@
     4. 若报错“no module named XXX”, 需pip 下载 aiohttp_sse_client，aiohttp，asyncio等所需库
 
 ## 下单规范
-- 下单规范如下：
-Order(
-    instrument=self.instrument, #品种名,ymal文件的watchlist中定义，现在暂时先用rb2510
-    direction=1,  # 无关参数，但需保留
-    china_exchange="SHFE", #交易所
-    china_direction=2, #2：buy 3：sell
-    offset=4, #1:开仓 2：平仓 3：强平 4：平今 5：平昨
-    price=0, #下单价格，限价单填相应价格，市价单不要
-    volume=1, #下单手数，对策略自信可以增大下单手数
-    size=1,  # 无关参数，但需保留
-    stopPrice=0, #止损价，现在无效。止损需通过限价单或动态止损方式
-    orderPriceType=2 #1限价单 2市价单
-)
+- 下单规范如下：`
+```python
+    Order(
+        instrument=self.instrument, #品种名,ymal文件的watchlist中定义，现在暂时先用rb2510  
+        direction=1,  # 无关参数，但需保留
+        china_exchange="SHFE", #交易所
+        china_direction=2, #2：buy 3：sell
+        offset=4, #1:开仓 2：平仓 3：强平 4：平今 5：平昨
+        price=0, #下单价格，限价单填相应价格，市价单不要
+        volume=1, #下单手数，对策略自信可以增大下单手数
+        size=1,  # 无关参数，但需保留
+       stopPrice=0, #止损价，现在无效。止损需通过限价单或动态止损方式
+        orderPriceType=2 #1限价单 2市价单
+    )
