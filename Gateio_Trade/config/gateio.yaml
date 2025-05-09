@@ -1,0 +1,4 @@
+CCXT:EXCHANGE:
+  api_key: "131C5DBD-A236-4B62-8061-C955D9E4EB04"
+  secret: "dcdbda584b1ec9de7c4e0026c45d74f33fcea3fb5a452968f16ee873b9dffe80"
+  base_currency: "USDT"

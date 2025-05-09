@@ -1,0 +1,30 @@
+NAME: 'BDWZ Trend Strategy'
+MODULE: 'bdwz'
+CLASS: 'BDWZ'
+PERIOD: '300' # 暂时不用
+#interval:策略（generate_signal函数）多久运行一次
+INTERVAL: '1min'
+#策略中所需参数
+PARAMETERS:
+  long_ema_period: 20
+  medium_ema_period: 10
+  short_ema_period: 5
+
+
+  # 暂时不用
+  RR: 1.5
+
+#WATCHLIST: ['ETH-USD']
+            # 'EURJPY=X',
+            # 'EURAUD=X',
+            # 'AUDJPY=X']
+#WATCHLIST: ['m2505']
+#交易品种，现在暂时只支持rb2510一个品种
+WATCHLIST: ['rb2510']
+#WATCHLIST: ['RB0']
+#WATCHLIST: ['RealTime']
+
+#剩下没注释的其他参数暂时用不到
+
+
+

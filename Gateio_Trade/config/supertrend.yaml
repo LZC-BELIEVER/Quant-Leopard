@@ -1,0 +1,10 @@
+NAME: 'SuperTrend Scanner'
+MODULE: 'supertrend'
+CLASS: 'SuperTrendScan'
+PERIOD: '300'
+INTERVAL: '1d'
+PARAMETERS:
+  ema_period: 200
+  candle_tol: 10
+  RR: 2.0
+WATCHLIST: ['EURUSD=X']
