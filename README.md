@@ -20,6 +20,7 @@
     2. 在根目录下day_and_night.py中的run_strategy函数中，将python路径以及项目路径改为自己的路径
     3. 仿照Gateio_Trade中strategies文件夹下bdwz.py（将bdwz.py中self.broker.api.sse_client.login('')括号内填入自己密码）以及config中的bdwz.ymal写一份自己的策略，并放在对应位置
     4. 若报错“no module named XXX”, 需pip 下载 aiohttp_sse_client，aiohttp，asyncio等所需库
+    5.  将run.py中at.add_strategy("bdwz")中的“bdwz”改为你的策略名（你的策略叫xxx.py，就改为xxx）
 
 ## 下单规范
 - 下单规范如下：`
