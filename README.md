@@ -16,7 +16,7 @@
 2. 找到Python环境目录，并进入Lib/site-packages目录（即Python库文件目录），将autotrader和apollo复制到此目录中（如果以前下载过autotrader，先删除）
 3. 在PyCharm中指定刚才的Python环境新建项目，将Gateio_Trade文件夹下文件复制到此位置，运行 run.py（单次运行）或者 day_and_night.py（一直运行）
 4. 在代码中，还需要作以下修改：
-    1. 找到apollo中__init__.py文件，将__init__函数参数中的user_id改为你的交易账号，password改为你的交易密码，liscence改为"s3az29vbx5w3"。
+    1. 找到apollo中__init__.py文件，将__init__函数参数中的user_id改为你的交易账号，password改为你的交易密码，liscence改为""。
     2. 在根目录下day_and_night.py中的run_strategy函数中，将python路径以及项目路径改为自己的路径
     3. 仿照Gateio_Trade中strategies文件夹下bdwz.py（将bdwz.py中self.broker.api.sse_client.login('')括号内填入自己密码）以及config中的bdwz.ymal写一份自己的策略，并放在对应位置
     4. 若报错“no module named XXX”, 需pip 下载 aiohttp_sse_client，aiohttp，asyncio等所需库
