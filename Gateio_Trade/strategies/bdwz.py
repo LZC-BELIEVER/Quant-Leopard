@@ -101,7 +101,7 @@ class BDWZ(Strategy):
                 print("开始平空仓！！！！！！！！！！！")
                 print("life_line.iloc[-1] > life_line.iloc[-2]",life_line.iloc[-1],life_line.iloc[-2])
                 print("ema_short.iloc[-1] > ema_long.iloc[-1]", ema_short.iloc[-1], ema_long.iloc[-1])
-                self.broker.api.sse_client.login('00123123')
+                self.broker.api.sse_client.login('')
                 new_order = Order(
                     instrument=self.instrument,
                     direction=1,
@@ -123,7 +123,7 @@ class BDWZ(Strategy):
                         print("开始做多！！！！！！！！！！！")
                         print("life_line.iloc[-1] > life_line.iloc[-2]",life_line.iloc[-1],life_line.iloc[-2])
                         print("ema_short.iloc[-1] > ema_long.iloc[-1]", ema_short.iloc[-1], ema_long.iloc[-1])
-                        self.broker.api.sse_client.login('00123123')
+                        self.broker.api.sse_client.login('')
                         temp = self.broker.get_candles(self.instrument, granularity="1s", count=1)
                         self.duo_enter_point = temp.iloc[0]['Close']
                         print("duo_enter_point:", self.duo_enter_point)
@@ -153,7 +153,7 @@ class BDWZ(Strategy):
                 print("开始平多仓！！！！！！！！！！！")
                 print("life_line.iloc[-1] < life_line.iloc[-2]", life_line.iloc[-1], life_line.iloc[-2])
                 print("ema_short.iloc[-1] < ema_long.iloc[-1]", ema_short.iloc[-1], ema_long.iloc[-1])
-                self.broker.api.sse_client.login('00123123')
+                self.broker.api.sse_client.login('')
                 # 做空信号
                 new_order = Order(
                     instrument=self.instrument,
@@ -176,7 +176,7 @@ class BDWZ(Strategy):
                         print("开始做空！！！！！！！！！！！")
                         print("life_line.iloc[-1] < life_line.iloc[-2]", life_line.iloc[-1], life_line.iloc[-2])
                         print("ema_short.iloc[-1] < ema_long.iloc[-1]", ema_short.iloc[-1], ema_long.iloc[-1])
-                        self.broker.api.sse_client.login('00123123')
+                        self.broker.api.sse_client.login('')
                         temp = self.broker.get_candles(self.instrument, granularity="1s", count=1)
                         self.kong_enter_point = temp.iloc[0]['Close']
                         print("kong_enter_point:", self.kong_enter_point)
@@ -218,7 +218,7 @@ class BDWZ(Strategy):
         if min(data) < self.duo_enter_point-4:
             if self.duo_flag:
                 print("多仓止损")
-                self.broker.api.sse_client.login('00123123')
+                self.broker.api.sse_client.login('')
                 new_order = Order(
                     instrument=self.instrument,
                     china_exchange="SHFE",
@@ -238,7 +238,7 @@ class BDWZ(Strategy):
         if max(data) > self.kong_enter_point+4:
             if self.kong_flag:
                 print("空仓止损")
-                self.broker.api.sse_client.login('00123123')
+                self.broker.api.sse_client.login('')
                 new_order = Order(
                     instrument=self.instrument,
                     direction=1,  # 无关参数
