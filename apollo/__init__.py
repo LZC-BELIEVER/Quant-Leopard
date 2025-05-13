@@ -11,7 +11,7 @@ class Context:
     apollo interface provides connection to China's products
     author: LZC
     """
-    def __init__(self, lisence="", fc_code="rh", user_id="", password=""):
+    def __init__(self, lisence="s3az29vbx5w3", fc_code="rh", user_id="202500100", password="00123123"):
         self.lisence = lisence
         self.fc_code = fc_code
         self.user_id = user_id
@@ -34,7 +34,7 @@ class Context:
         
         for _ in range(200):
             if self.sse_client:
-                if self.sse_client.is_logged_in:
+                if self.sse_client.is_ready:
                     break
             time.sleep(0.1)
         else:
@@ -72,7 +72,7 @@ class Context:
                 return
 
             for _ in range(50):
-                if client.is_logged_in:
+                if client.is_ready:
                     break
                 await asyncio.sleep(0.1)
             else:

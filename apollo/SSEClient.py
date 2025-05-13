@@ -8,7 +8,7 @@ import sys,os
 
 
 class SSEClient:
-    def __init__(self, base_url="http://192.168.1.40:9001", license_key=''):
+    def __init__(self, base_url="https://www.quantum-hedge.com", license_key=''):
         """
         初始化交易客户端
         :param base_url: API基础地址
@@ -29,6 +29,8 @@ class SSEClient:
         self.password = None
         self.is_mkt_open = True
         self._loop = asyncio.get_event_loop()
+
+        self.order_conditions = {}
 
     async def connect_sse(self, fc_code, user_id):
         """
@@ -92,9 +94,12 @@ class SSEClient:
                 if event.type == "isMarketOpen":
                     self.is_mkt_open = False
                     print(f"现在{event.data}交易时间")
+                if event.type == "trade":
+                    print("成交单回报:", event.data)
+                    print("已成交单号", event.dara.originOrderId)
                     
                 # 只处理业务事件
-                if event.type in ('logged_out', 'ready', 'order', 'trade', 'excption'):
+                if event.type in ('logged_out', 'order', 'trade', 'excption'):
                     try:
                         data = json.loads(event.data) if event.data else {}
                         print(f"收到业务事件: {event.type} - {data}")
@@ -104,8 +109,6 @@ class SSEClient:
                             print("退出成功")
                         elif event.type == "order":
                             print("委托单回报:", data)
-                        elif event.type == "trade":
-                            print("成交单回报:", data)
 
                     except json.JSONDecodeError:
                         print(f"非JSON格式的业务数据: {event.data}")
@@ -130,8 +133,7 @@ class SSEClient:
             raise Exception("请先建立SSE连接")
         '''if not self._loop.run_until_complete(self._check_connected()):
             raise Exception("请先建立SSE连接")'''
-
-        if self.is_logged_in:
+        if self.is_ready:
             print("账号已登录，无需重复登录")
             return True
 
@@ -170,7 +172,7 @@ class SSEClient:
         """
         期货下单（同步）
         """
-        if not self.is_logged_in:
+        if not self.is_ready:
             raise Exception("未登录")
 
         url = f"{self.base_url}/apollo-trade/api/v1/td/submitOrder"
@@ -202,6 +204,8 @@ class SSEClient:
             result = resp.json()
             if result.get('code') == 0:
                 print(f"下单成功，本地单号: {result.get('data')}")
+                order_number = result.get('data')
+                self.order_conditions[order_number] = 0
                 return result.get('data')
             else:
                 print(f"下单失败: {result.get('message')}")
@@ -214,7 +218,7 @@ class SSEClient:
         """
         期货下单（同步）
         """
-        if not self.is_logged_in:
+        if not self.is_ready:
             print("离线模式数据")
         else:
             print("在线模式数据")
@@ -292,7 +296,7 @@ class SSEClient:
 
     def logout(self):
         """交易账号退出登录（同步）"""
-        if not self.is_logged_in:
+        if not self.is_ready:
             print("账号未登录，无需退出")
             return True
 
@@ -312,12 +316,12 @@ class SSEClient:
                     'Accept': 'application/json',
                     'license': self.license_key
                 },
-                timeout=10
+                # timeout=10
             )
             result = resp.json()
             if result.get('code') == 0:
                 print("退出请求已发送，等待退出结果...")
-                self.is_logged_in = False
+                self.is_ready = False
                 return True
             else:
                 print(f"退出失败: {result.get('message')}")
@@ -330,7 +334,7 @@ class SSEClient:
         """
         撤单（同步）
         """
-        if not self.is_logged_in:
+        if not self.is_ready:
             raise Exception("请先登录交易账号")
 
         url = f"{self.base_url}/apollo-trade/api/v1/td/cancelOrder"
@@ -370,7 +374,7 @@ class SSEClient:
             return True
 
         # 先退出登录
-        if self.is_logged_in:
+        if self.is_ready:
             self.logout()
             # 等待退出完成
             await asyncio.sleep(1)
@@ -401,7 +405,7 @@ class SSEClient:
 
         finally:
             self.is_connected = False
-            self.is_logged_in = False
+            self.is_ready = False
             self.asy_session = None
 
     async def __aenter__(self):

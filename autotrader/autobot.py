@@ -323,17 +323,18 @@ class AutoTraderBot:
 
         # Log message
         current_time = timestamp.strftime("%b %d %Y %H:%M:%S")
-        if len(orders) > 0:
-            for order in orders:
-                if order is None:
-                    continue
-                direction = "long" if order.direction > 0 else "short"
-                order_string = (
-                    f"{current_time}: {order.instrument} "
-                    + f"{direction} {order.order_type} order of "
-                    + f"{order.size} units placed."
-                )
-                self.logger.info(order_string)
+        if orders:
+            if len(orders) > 0:
+                for order in orders:
+                    if order is None:
+                        continue
+                    direction = "long" if order.direction > 0 else "short"
+                    order_string = (
+                        f"{current_time}: {order.instrument} "
+                        + f"{direction} {order.order_type} order of "
+                        + f"{order.size} units placed."
+                    )
+                    self.logger.info(order_string)
         else:
             self.logger.debug(
                 f"{current_time}: No signal detected ({self.instrument})."
