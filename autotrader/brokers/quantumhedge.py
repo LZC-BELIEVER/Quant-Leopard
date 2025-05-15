@@ -190,7 +190,7 @@ class Broker(Broker):
         # 请求为字典时，要用[]访问，不能用.访问
 
         for candle in candles:
-            times.append(candle["tradeTime"])
+            times.append(candle["actionTimestamp"])
             close_price.append(float(candle["close"]))
             high_price.append(float(candle["high"]))
             low_price.append(float(candle["low"]))
