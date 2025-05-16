@@ -337,18 +337,38 @@ class Broker(Broker):
         return
 
     def close_position(self, instrument: str = None, china_exchange: str = 'SHFE', china_direction: int=2, offset: int = 4, volume: int = 1):
-        close_order = Order(
-            instrument=instrument,
-            direction=1,
-            china_exchange=china_exchange,
-            china_direction=china_direction,
-            offset=offset,
-            price=0,
-            volume=volume,
-            size=1,
-            stopPrice=0,
-            orderPriceType=2
-        )
+        if china_direction == 2:
+            temp = self.get_candles(instrument, granularity="1s", count=1)
+            kong_exit_point = temp.iloc[0]['Close'] + 3
+            close_order = Order(
+                instrument=instrument,
+                direction=1,
+                china_exchange=china_exchange,
+                china_direction=china_direction,
+                offset=offset,
+                price=kong_exit_point,
+                volume=volume,
+                size=1,
+                stopPrice=0,
+                orderPriceType=1
+            )
+        elif china_direction == 3:
+            temp = self.get_candles(instrument, granularity="1s", count=1)
+            duo_exit_point = temp.iloc[0]['Close'] - 3
+            close_order = Order(
+                instrument=instrument,
+                direction=1,
+                china_exchange=china_exchange,
+                china_direction=china_direction,
+                offset=offset,
+                price=duo_exit_point,
+                volume=volume,
+                size=1,
+                stopPrice=0,
+                orderPriceType=1
+            )
+        else:
+            raise ValueError(china_direction)
         return close_order
 
     def get_precision(self, instrument: str, *arg, **kwargs):
