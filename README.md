@@ -1,7 +1,7 @@
 # Quant Leopard 1.0 使用文档
 
 ## 简介
-- Quant Leopard 1.0是量子对冲（西安）科技发展有限公司内部量化策略研究人员所使用的直连交易客户端系统，系统可以实现获取期货行情数据并根据自定义策略实现自动化交易。
+- Quant Leopard 1.0是波普尔技术（西安）科技发展有限公司内部量化策略研究人员所使用的直连交易客户端系统，系统可以实现获取期货行情数据并根据自定义策略实现自动化交易。
 - 系统基于[AutoTrader](https://github.com/kieran-mackle/AutoTrader)实现。现在只支持中国大陆期货市场单一期货品种交易，更多功能请期待Quant Man 2.0 版本。
 - 由于系统还处于内部测试阶段，可能会有某些bug，所以建议尽量先在1手范围内下单，且需要时常看一下仓位结果（在随手易等软件）上，避免造成大的损失。
 - Author: LZC from XJTU
@@ -20,7 +20,8 @@
     2. 在根目录下day_and_night.py中的run_strategy函数中，将python路径以及项目路径改为自己的路径
     3. 仿照Gateio_Trade中strategies文件夹下bdwz.py（将bdwz.py中self.broker.api.sse_client.login('')括号内填入自己密码）以及config中的bdwz.ymal写一份自己的策略，并放在对应位置（请看群里的bdwz.py，这里的bdwz.py不准确。）
     4. 若报错“no module named XXX”, 需pip 下载 aiohttp_sse_client，aiohttp，asyncio等所需库
-    5.  将run.py中at.add_strategy("bdwz")中的“bdwz”改为你的策略名（你的策略叫xxx.py，就改为xxx）
+    5. 将run.py中at.add_strategy("bdwz")中的“bdwz”改为你的策略名（你的策略叫xxx.py，就改为xxx）
+    6. 将autotrader/brokers/quantumhedge.py中298行的clear_positions(self, instrument: str = 'ao2509')中的“ao2509”改为你自己要交易的品种
 
 ## 下单规范
 - 下单规范如下：`
