@@ -2,7 +2,7 @@
 
 ## 简介
 - Quant Leopard 1.0是波普尔技术（西安）科技发展有限公司内部量化策略研究人员所使用的直连交易客户端系统，系统可以实现获取期货行情数据并根据自定义策略实现自动化交易。
-- 系统基于[AutoTrader](https://github.com/kieran-mackle/AutoTrader)实现。现在只支持中国大陆期货市场单一期货品种交易，更多功能请期待Quant Man 2.0 版本。
+- 系统基于[AutoTrader](https://github.com/kieran-mackle/AutoTrader)实现。现在只支持中国大陆期货市场单一期货品种交易，更多功能请期待Quant Leopard 2.0 版本。
 - 由于系统还处于内部测试阶段，可能会有某些bug，所以建议尽量先在1手范围内下单，且需要时常看一下仓位结果（在随手易等软件）上，避免造成大的损失。
 - Author: LZC from XJTU
 
